@@ -51,8 +51,8 @@ public class UserController extends AbstractController {
 		if (!users.contains(user)) {
 			users.add(user);
 		}else {
-			error= user.getUsername() + "User already exists!";
-			request.setAttribute("error",error);
+			error= "User " + user.getUsername() + " already exists!";
+			request.getServletContext().setAttribute("error",error);
 		}
 		request.getServletContext().setAttribute("users", users);
 		return "redirect:/users/addUser";

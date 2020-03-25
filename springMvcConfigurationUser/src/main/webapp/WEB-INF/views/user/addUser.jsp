@@ -35,7 +35,7 @@
 				</tr>
 				<tr>
 					<td><a href="../back">Back</a></td>
-					<td>${requestScope.error}</td>
+					<td>${error}</td>
 				
 			</tbody>
 		</table>
