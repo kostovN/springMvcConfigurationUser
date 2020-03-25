@@ -26,7 +26,7 @@
 					<td><form:input id="firstname" path="firstname" /></td>
 				</tr>
 				<tr>
-					<td>Password:</td>
+					<td>Lastname:</td>
 					<td><form:input id="lastname" path="lastname" /></td>
 				</tr>
 				<tr>
@@ -35,7 +35,8 @@
 				</tr>
 				<tr>
 					<td><a href="../back">Back</a></td>
-				</tr>
+					<td>${requestScope.error}</td>
+				
 			</tbody>
 		</table>
 	</form:form>

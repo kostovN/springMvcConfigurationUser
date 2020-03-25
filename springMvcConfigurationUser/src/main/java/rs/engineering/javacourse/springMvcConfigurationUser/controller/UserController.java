@@ -16,40 +16,45 @@ import rs.engineering.javacourse.springMvcConfigurationUser.dto.User;
 
 @Controller
 @RequestMapping(value = "/users")
-public class UserController extends AbstractController{
+public class UserController extends AbstractController {
 
 	@ModelAttribute(name = "user")
 	public User user() {
-		return new User("-","-","-","-");
+		return new User("-", "-", "-", "-");
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView users(HttpServletRequest request,HttpServletResponse response) {
+	public ModelAndView users(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView("/WEB-INF/views/user/users");
-		modelAndView.addObject("action","Action: view all users");
+		modelAndView.addObject("action", "Action: view all users");
 		return modelAndView;
 	}
-	
-	@RequestMapping(value = "/addUser",method = RequestMethod.GET)
-	public ModelAndView addUser(HttpServletRequest request,HttpServletResponse response) {
+
+	@RequestMapping(value = "/addUser", method = RequestMethod.GET)
+	public ModelAndView addUser(HttpServletRequest request, HttpServletResponse response) {
 		request.setAttribute("action", "Action: add new company");
 		return new ModelAndView("/WEB-INF/views/user/addUser");
 	}
-	
+
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		// TODO Auto-generated method stub
 		return new ModelAndView("user");
 	}
-	
-	@RequestMapping(value = "/save",method = RequestMethod.POST)
-	public String save(@ModelAttribute(name="user") User user,HttpServletRequest request, HttpServletResponse response) {
-		
-		List<User> users = (List<User>)request.getServletContext().getAttribute("users");
-		users.add(user);
+
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public String save(@ModelAttribute(name = "user") User user, HttpServletRequest request,
+			HttpServletResponse response) {
+		String error = "";
+		List<User> users = (List<User>) request.getServletContext().getAttribute("users");
+		if (!users.contains(user)) {
+			users.add(user);
+		}else {
+			error= user.getUsername() + "User already exists!";
+			request.setAttribute("error",error);
+		}
 		request.getServletContext().setAttribute("users", users);
-		System.out.println(users);
 		return "redirect:/users/addUser";
 	}
 
